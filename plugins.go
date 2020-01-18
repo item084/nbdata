@@ -11,7 +11,7 @@ import (
 /* TODO : formalize to tsv ome Browser
  *        for future data loader
  */
-func PluginTsv(dbname string, data interface{}) (data.DataRouter, error) {
+func PluginTsv(subdir string, dbname string, data interface{}) (data.DataRouter, error) {
 	switch v := data.(type) {
 	default:
 		fmt.Printf("unexpected type %T", v)
@@ -19,7 +19,7 @@ func PluginTsv(dbname string, data interface{}) (data.DataRouter, error) {
 	case string:
 		return nil, errors.New("todo")
 	case map[string]interface{}:
-		r := &tbl2x.TableRouter{dbname, make(map[string]*tbl2x.Table)}
+		r := &tbl2x.TableRouter{subdir, dbname, make(map[string]*tbl2x.Table)}
 		err := r.Load(data.(map[string]interface{}))
 		return r, err
 	}
